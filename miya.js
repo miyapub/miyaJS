@@ -411,17 +411,40 @@ __.prototype.not=function(options){
     return this;
 }
 
-__.prototype.make=function(options){
-    var element = document.createElement("div");
-    for (var key in options) {
+__.prototype.resetTagName=function(newTagName){
 
+    for(var i=0;i<this.elements.length;i++){
+        var element=this.elements[i];
+        console.log(element)
+        /*
+        var renamed = document.createElement(newTagName);
+
+        for (var attribute in element.attributes){
+            console.log(attribute);
+            renamed.setAttribute(attribute.nodeName, attribute.nodeValue);
+        }
+        while (element.firstChild) {
+            renamed.appendChild(element.firstChild);
+        }
+        return element.parentNode.replaceChild(renamed, element);
+        */
+    }
+}
+__.prototype.make=function(options){
+    var element = 0;
+    for (var key in options) {
         if(key==="tag"){
-            element.tagName=options[key];
+            element = document.createElement(options[key]);
+        }
+    }
+    if(element===0){
+        element = document.createElement("div");
+    }
+    for (var key in options) {
+        if(key==="tag"){
         }else{
             element.setAttribute(key, options[key]);
         }
-
-
     }
     this.elements.push(element);
     return this;
